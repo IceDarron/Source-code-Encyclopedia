@@ -39,7 +39,7 @@ default boolean removeIf(Predicate<? super E> filter) {
  */
 ```
 + boolean retainAll(Collection<?> c); 仅保留集合中包含在指定集合中的元素（可选操作）。
-+ int size(); 集合包含的元素个数。
++ int size(); 集合包含的元素个数。如果超过Integer.MAX_VALUE，则返回Integer.MAX_VALUE。
 + Object[] toArray(); 返回包含此集合中所有元素的数组。
 + <T> T[] toArray(T[] a); 返回数组的运行时类型是指定数组的运行时类型。
 + default Spliterator<E> spliterator() { return Spliterators.spliterator(this, 0); } Spliterator（splitable iterator可分割迭代器）
