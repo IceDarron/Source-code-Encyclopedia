@@ -45,8 +45,8 @@ default boolean removeIf(Predicate<? super E> filter) {
 + default Spliterator<E> spliterator() { return Spliterators.spliterator(this, 0); } Spliterator（splitable iterator可分割迭代器）
                                                                                    接口是Java为了并行遍历数据源中的元素而设计的迭代器。
                                                                                    iterator顺序遍历。spliterator并行遍历。
-+ default Stream<E> stream() { return StreamSupport.stream(spliterator(), false); } 一种流的处理方式。单管道。
-+ default Stream<E> parallelStream() { return StreamSupport.stream(spliterator(), true); } 一种流的处理方式。多管道。
++ default Stream<E> stream() { return StreamSupport.stream(spliterator(), false); } 一种流的处理方式。不使用可分割迭代器。单管道。
++ default Stream<E> parallelStream() { return StreamSupport.stream(spliterator(), true); } 一种流的处理方式。使用可分割迭代器。多管道。
   
   
 ## Iterable 
