@@ -120,3 +120,6 @@ AbstractList内部类：
 AbstractList辅助类：
 + class SubList<E> extends AbstractList<E>{} 辅助类，扩展List中的subList方法？
 + class RandomAccessSubList<E> extends SubList<E> implements RandomAccess{} 辅助类，扩展了SubList，实现了接口RandomAccess。
+      
+# 参考资料
+http://blog.csdn.net/caoxiaohong1005/article/details/79525127
