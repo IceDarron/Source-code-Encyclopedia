@@ -113,8 +113,10 @@ public List<E> subList(int fromIndex, int toIndex) {
 
 + protected transient int modCount = 0; 此列表已在结构上修改的次数。用于迭代器中的fast-fail校验。
 
-类：
+# 内部类和辅助类
+AbstractList内部类：
 + private class Itr implements Iterator<E>{} 私有内部类，提供了迭代器的实现。
 + private class ListItr extends Itr implements ListIterator<E>{} 私有内部类，增加了迭代器的前驱遍历。
+AbstractList辅助类：
 + class SubList<E> extends AbstractList<E>{} 辅助类，扩展List中的subList方法？
 + class RandomAccessSubList<E> extends SubList<E> implements RandomAccess{} 辅助类，扩展了SubList，实现了接口RandomAccess。
