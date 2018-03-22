@@ -1,8 +1,8 @@
 该抽象类实现了Collection最基本的实现（无关于各个具体集合实现类的数据结构或调用的迭代器在各个具体实现类实现）。
 
-对于一个不可更改的集合，只要继承这个类并且实现迭代器和size()方法就行。
+对于一个不可更改的集合，只要继承这个类并且实现迭代器Iterator和size()方法就行。
 
-对于一个可更改的集合，还需要实现add和返回Iterator的方法，当然可选的实现remove方法。
+对于一个可更改的集合，还需要实现add()方法，当然可选的实现remove方法。
 
 # 主要方法
 + public abstract Iterator<E> iterator(); 迭代器的实现仍旧抽象，由子类实现。
@@ -20,8 +20,8 @@
 
 两个较为特殊且重要的方法。
 
-+ private static <T> T[] finishToArray(T[] r, Iterator<?> it){}
-+ private static int hugeCapacity(int minCapacity){}
++ private static <T> T[] finishToArray(T[] r, Iterator<?> it){} 扩大集合。
++ private static int hugeCapacity(int minCapacity){} 重新调整最大容量。
 
 # 主要成员变量
 private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8; 可分配的最大数组大小。
