@@ -1,5 +1,7 @@
 ![Image text](https://github.com/IceDarron/Source-code-Encyclopedia/blob/master/Image/jdk_collection.png)
 
+![Image text](https://github.com/IceDarron/Source-code-Encyclopedia/blob/master/Image/jdk_collection_new.png)
+
 # 基本概念
 jdk中Collection.java中的一段原文，该类是集合的一个跟接口，主要继承该接口的有List，Set，Queue。
 
