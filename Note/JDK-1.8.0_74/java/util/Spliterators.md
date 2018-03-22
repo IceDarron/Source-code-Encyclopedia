@@ -1,0 +1,1 @@
+静态的类和方法为了操作或创建实例spliterator及其初始化spliterator.ofInt，Spliterator.OfLong，Spliterator.OfDouble。
