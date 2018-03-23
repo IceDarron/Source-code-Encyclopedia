@@ -111,7 +111,7 @@ public List<E> subList(int fromIndex, int toIndex) {
     }
 ```
 
-+ protected transient int modCount = 0; 此列表已在结构上修改的次数。用于迭代器中的fast-fail校验。
++ protected transient int modCount = 0; 此列表已在结构上修改的次数。用于迭代器中的fast-fail校验。子类直接继承该属性并使用。
 
 # 内部类和辅助类
 AbstractList内部类：
