@@ -17,6 +17,8 @@ ArrayList是一个容量动态扩张的集合。底层数据结构是数组，�
 + private static final int DEFAULT_CAPACITY = 10; 初始集合容量。
 + transient Object[] elementData; // non-private to simplify nested class access 应该是1.8以后不再是私有属性。为什么。。？
 + private int size; 集合元素数。
++ private static final Object[] EMPTY_ELEMENTDATA = {}; 用于有参构造函数。
++ private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {}; 用于无参构造函数。
 
 # 主要方法
 ## 构造函数
