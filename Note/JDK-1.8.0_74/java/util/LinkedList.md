@@ -328,3 +328,7 @@ private void writeObject(java.io.ObjectOutputStream s)
 
 # 参考资料
 该资料从不同的角度归纳了LinkedList下的所有方法：https://www.cnblogs.com/CherishFX/p/4734490.html
+
+https://www.cnblogs.com/ysocean/p/6555373.html
+
+http://blog.csdn.net/pml18710973036/article/details/78452717
