@@ -30,6 +30,8 @@ AbstractList是List的骨架实现。继承了AbstractCollection抽象类。实�
  */
 ```
 
+总之，AbstractList抽象类，是减少了子类实现List接口时的工作量。主要实现了List自己的迭代器ListIterator。并实现了迭代器相关的各种查询方法。对于增删改（add，set，remove）方法，仍需子类自己实现（由于子类的数据结构不同）。
+
 # 提供的主要方法
 + protected AbstractList(){} 构造函数，允许子类使用。
 + public boolean add(E e){} 添加元素，在尾部添加新的元素。调用的add(int index, E element)未实现。
