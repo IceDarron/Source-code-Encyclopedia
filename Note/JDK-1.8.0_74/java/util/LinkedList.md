@@ -323,7 +323,147 @@ private void writeObject(java.io.ObjectOutputStream s)
 
 
 # 主要内部类
+## Node
+链表结构的基础元素-Node。提供了三个属性（当前节点，前一节点，后一节点）及一个构造函数。
+```java
+private static class Node<E> {
+        E item;
+        Node<E> next;
+        Node<E> prev;
 
+        Node(Node<E> prev, E element, Node<E> next) {
+            this.item = element;
+            this.next = next;
+            this.prev = prev;
+        }
+    }
+```
+
+## DescendingIterator
+返回一个迭代器在此双端队列以逆向顺序的元素。
+```java
+private class DescendingIterator implements Iterator<E> {
+        private final ListItr itr = new ListItr(size());
+        public boolean hasNext() {
+            return itr.hasPrevious();
+        }
+        public E next() {
+            return itr.previous();
+        }
+        public void remove() {
+            itr.remove();
+        }
+    }
+```
+
+## 串行迭代器
+实现了一个串行迭代器，使用方法较之1.8以前没有什么区别。
+```java
+private class ListItr implements ListIterator<E> {
+    //...
+}
+```
+
+## 并行迭代器
+实现了一个并行迭代器，属于1.8新增的内容。迭代器的实现原理并没有比较详细的资料。下面参考源码分析其实现原理。
+
+
+```java
+static final class LLSpliterator<E> implements Spliterator<E> {
+        static final int BATCH_UNIT = 1 << 10;  // batch array size increment
+        static final int MAX_BATCH = 1 << 25;  // max batch array size;
+        final LinkedList<E> list; // null OK unless traversed
+        Node<E> current;      // current node; null until initialized
+        int est;              // size estimate; -1 until first needed
+        int expectedModCount; // initialized when est set
+        int batch;            // batch size for splits
+
+        LLSpliterator(LinkedList<E> list, int est, int expectedModCount) {
+            this.list = list;
+            this.est = est;
+            this.expectedModCount = expectedModCount;
+        }
+
+        // 估计传递过来的集合大小，当前元素位置。返回int。
+        final int getEst() {
+            int s; // force initialization
+            final LinkedList<E> lst;
+            if ((s = est) < 0) {
+                if ((lst = list) == null)
+                    s = est = 0;
+                else {
+                    expectedModCount = lst.modCount;
+                    current = lst.first;
+                    s = est = lst.size;
+                }
+            }
+            return s;
+        }
+
+        // 估计传递过来的集合大小。返回long。
+        public long estimateSize() { return (long) getEst(); }
+
+        public Spliterator<E> trySplit() {
+            Node<E> p;
+            int s = getEst();
+            if (s > 1 && (p = current) != null) {
+                int n = batch + BATCH_UNIT;
+                if (n > s)
+                    n = s;
+                if (n > MAX_BATCH)
+                    n = MAX_BATCH;
+                Object[] a = new Object[n];
+                int j = 0;
+                do { a[j++] = p.item; } while ((p = p.next) != null && j < n);
+                current = p;
+                batch = j;
+                est = s - j;
+                return Spliterators.spliterator(a, 0, j, Spliterator.ORDERED);
+            }
+            return null;
+        }
+
+        public void forEachRemaining(Consumer<? super E> action) {
+            Node<E> p; int n;
+            if (action == null) throw new NullPointerException();
+            if ((n = getEst()) > 0 && (p = current) != null) {
+                current = null;
+                est = 0;
+                do {
+                    E e = p.item;
+                    p = p.next;
+                    action.accept(e);
+                } while (p != null && --n > 0);
+            }
+            if (list.modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+        }
+
+        public boolean tryAdvance(Consumer<? super E> action) {
+            Node<E> p;
+            if (action == null) throw new NullPointerException();
+            if (getEst() > 0 && (p = current) != null) {
+                --est;
+                E e = p.item;
+                current = p.next;
+                action.accept(e);
+                if (list.modCount != expectedModCount)
+                    throw new ConcurrentModificationException();
+                return true;
+            }
+            return false;
+        }
+
+        public int characteristics() {
+            return Spliterator.ORDERED | Spliterator.SIZED | Spliterator.SUBSIZED;
+        }
+    }
+```
+
+
+# Fail-Fast机制
+LinkedList也采用了快速失败的机制，通过记录modCount参数来实现。
+在面对并发的修改时，迭代器很快就会完全失败，而不是冒着在将来某个不确定时间发生任意不确定行为的风险。
 
 
 # 参考资料
