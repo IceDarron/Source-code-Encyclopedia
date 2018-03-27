@@ -3,11 +3,16 @@ Set
 # 基本概念
 线程不安全，根据实现方式不同，有的有序，有的无序。元素不重复。
 
+```java
+public interface Set<E> extends Collection<E> {
+    }
+```
+
 # 常用实现类，接口，抽象类
 ## 线程不安全
 + EnumSet有序不重复
 + TreeSet有序不重复
-+ HashSet无序不重复
++ HashSet无序不重复 底层为HashMap
 + LinkedHashSet有序不重复？
 + NavigableSet有序不重复
 
