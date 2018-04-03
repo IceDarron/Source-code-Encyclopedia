@@ -5,6 +5,8 @@ Map是Key-Value对映射的抽象接口。该映射不包括重复的键，即�
 
 Map接口提供了3个集合视图,包括:keys的set集合; values的集合; key-value的set集合.(注意:values集合不是set类型,因为value可相同)
 
+Hash算法本质上就是三步：取key的hashCode值、高位运算、取模运算。
+
 主要有四个实现类：
 + HashTable 线程安全，哈希表。效率低（因为元素修改的方法都加了synchronized）。本质是HashMap。
 + HashMap 线程不安全。哈希表（桶，分治思想）。
@@ -19,12 +21,12 @@ Map接口提供了3个集合视图,包括:keys的set集合; values的集合; key
 + computeIfPresent
 + boolean containsKey(Object key); 如果map存储了指定的key,则返回true.更一般的情况是,当且仅当map包含了一个key的映射: 映射情况是:key==null ? k==null : key.equals(k),此时返回true.
 + boolean containsValue(Object value); 如果map中至少有一个key能映射到指定的value,那么就返回true.更一般的情况是,当且仅当value==null ? v==null : value.equals(v)。
-+ entrySet
-+ equals
++ Set<Map.Entry<K, V>> entrySet(); 此方法返回map里存储的所有映射的视图. 
++ boolean equals(Object o);  用于对比两个map是否相等.
 + forEach
 + V get(Object key); 返回指定key映射的value.如果map没有指定的key,则返回null.
 + getOrDefault
-+ hashCode
++ int hashCode(); 返回map的哈希值. 
 + boolean isEmpty(); 如果map没有存储任何key-value,则返回true.
 + Set<K> keySet(); 返回map包含所有的key的一个set集合视图.
 + merge
@@ -32,13 +34,17 @@ Map接口提供了3个集合视图,包括:keys的set集合; values的集合; key
 + void putAll(Map<? extends K, ? extends V> m); putAll方法是将一个指定map的映射拷贝到当前map.
 + putIfAbsent
 + V remove(Object key); remove方法用于移除map中已有的某个key.本方法会返回移除的key对应的value值,如果map这个key没有对应的value值,则返回null.
-+ remove
++ default boolean remove(Object key, Object value){} 如果给定的参数key和value在map中是一个entry,则删除这个entry.
 + replace
 + replace
 + replaceAll
 + int size(); 返回map中key-value映射的个数.如果map包含的key-value个数超过了Integer.MAX_VALUE这个数, 则返回Integer.MAX_VALUE.
-+ values
++ Collection<V> values();  values方法返回map内存储的所有值的集合(毕竟值集合中,值可以有重复的,所以此方法和上面的返回的key集合的结果类型不一样,因为key肯定都是不同的). 
 
 
 ## 内部类
-Entry
+Entry map条目(key-value对). 
+
+
+# 参考资料
+https://blog.csdn.net/caoxiaohong1005/article/details/78509103
