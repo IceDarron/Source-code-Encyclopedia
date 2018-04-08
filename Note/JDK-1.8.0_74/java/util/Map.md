@@ -5,11 +5,15 @@ Map是Key-Value对映射的抽象接口。该映射不包括重复的键，即�
 
 Map接口提供了3个集合视图,包括:keys的set集合; values的集合; key-value的set集合.(注意:values集合不是set类型,因为value可相同)
 
-主要有四个实现类：
-+ HashTable 线程安全，哈希表。效率低（因为元素修改的方法都加了synchronized）。本质是HashMap。
-+ HashMap 线程不安全。哈希表（桶，分治思想）。
-+ LinkedHashMap 线程不安全。哈希表，链表结构。
-+ TreeMap 线程不安全。红黑树结构。
+相关重要的类：
++ AbstractMap：实现了Map接口的抽象类。Map的基本实现，其他Map的实现类可以通过继承AbstractMap来减少编码量。
++ SortedMap：继承Map。保证按照键的升序排列的映射，对entrySet、keySet和values方法返回的结果进行迭代时，顺序就会反映出来。
++ NavigableMap：继承SortedMap，含有返回特定条件最近匹配的导航方法。
++ HashMap：Map接口基于哈希表的实现，是使用频率最高的用于键值对处理的数据类型。它根据键的hashCode值存储数据，大多数情况下可以直接定位到它的值，特点是访问速度快，遍历顺序不确定，线程不安全，最多允许一个key为null，允许多个value为null。可以用 Collections的synchronizedMap方法使HashMap具有线程安全的能力，或者使用ConcurrentHashMap类。
++ HashTable：Hashtable和HashMap从存储结构和实现来讲有很多相似之处，不同的是它承自Dictionary类，而且是线程安全的，另外Hashtable不允许key和value为null。并发性不如ConcurrentHashMap，因为ConcurrentHashMap引入了分段锁。Hashtable不建议在新代码中使用，不需要线程安全的场合可以使用HashMap，需要线程安全的场合可以使用ConcurrentHashMap。
++ LinkedHashMap： LinkedHashMap继承了HashMap，是Map接口的哈希表和链接列表实现。它维护着一个双重链接列表。此链接列表定义了迭代顺序，该迭代顺序可以是插入顺序或者是访问顺序。
++ WeakedHashMap： 以弱键实现的基于哈希表的Map。在WeakHashMap中，当某个键不再正常使用时，将自动移除其条目。
++ TreeMap ： Map接口基于红黑树的实现。
 
 # 主要方法及内部类
 ## 方法
