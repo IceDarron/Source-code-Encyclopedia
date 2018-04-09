@@ -33,15 +33,15 @@ Hash算法本质上就是三步：取key的hashCode值、高位运算、取模�
 + int hashCode(); 返回map的哈希值. 
 + boolean isEmpty(); 如果map没有存储任何key-value,则返回true.
 + Set<K> keySet(); 返回map包含所有的key的一个set集合视图.
-+ merge
++ default V merge(K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction) {} 如果指定key没有value,或者其value为null,则将其改为给定的非null的value. 
 + V put(K key, V value); put方法是将指定的key-value存储到map里面的操作.如果map之前包含了一个此key对应的映射,那么此key对应的旧value值会被新的value值替换.
 + void putAll(Map<? extends K, ? extends V> m); putAll方法是将一个指定map的映射拷贝到当前map.
 + putIfAbsent
 + V remove(Object key); remove方法用于移除map中已有的某个key.本方法会返回移除的key对应的value值,如果map这个key没有对应的value值,则返回null.
 + default boolean remove(Object key, Object value){} 如果给定的参数key和value在map中是一个entry,则删除这个entry.
-+ replace
-+ replace
-+ replaceAll
++ default boolean replace(K key, V oldValue, V newValue){} 如果给定的key和value在map中有entry,则为指定key的entry,用新value替换旧的value. 
++ default V replace(K key, V value){} 如果指定key在map中有value,则用参数value进行替换.
++ replaceAll 对于map中每一个entry,将其value替换成BiFunction接口返回的值.直到所有entry替换完or出现异常为止. 
 + int size(); 返回map中key-value映射的个数.如果map包含的key-value个数超过了Integer.MAX_VALUE这个数, 则返回Integer.MAX_VALUE.
 + Collection<V> values();  values方法返回map内存储的所有值的集合(毕竟值集合中,值可以有重复的,所以此方法和上面的返回的key集合的结果类型不一样,因为key肯定都是不同的). 
 
