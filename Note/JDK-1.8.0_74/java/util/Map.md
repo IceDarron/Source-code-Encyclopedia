@@ -46,8 +46,9 @@ Hash算法本质上就是三步：取key的hashCode值、高位运算、取模�
 + Collection<V> values();  values方法返回map内存储的所有值的集合(毕竟值集合中,值可以有重复的,所以此方法和上面的返回的key集合的结果类型不一样,因为key肯定都是不同的). 
 
 
-## 内部类
+## 内部类（接口）
 Entry map条目(key-value对). 
+在后续实现类会实现该接口（例如hashMap.Node）。主要为了方便遍历集合。
 
 
 # 参考资料
