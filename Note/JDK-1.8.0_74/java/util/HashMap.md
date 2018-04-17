@@ -23,4 +23,6 @@ Node是HashMap的一个内部类，实现了Map.Entry接口，本质是就是一
 modCount字段主要用来记录HashMap内部结构发生变化的次数，主要用于迭代的快速失败。强调一点，内部结构发生变化指的是结构发生变化，例如put新键值对，但是某个key对应的value值被覆盖不属于结构变化。
 
 # 参考资料
-https://tech.meituan.com/java-hashmap.html
+hashmap详解：https://tech.meituan.com/java-hashmap.html
+
+hash冲突：https://blog.csdn.net/qq_27093465/article/details/52269862
