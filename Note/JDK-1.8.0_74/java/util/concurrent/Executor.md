@@ -4,6 +4,6 @@ public interface Executor {
     void execute(Runnable command);
 }
 ```
-
+并发包中的一个顶级接口。
 定义了一个execute函数用来提交一个Runnable的任务。
 该方式提交的任务不能获取返回值，因此无法判断任务是否执行成功。
