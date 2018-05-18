@@ -40,3 +40,9 @@ public class Executors {
 ```
 
 一个工厂类提供EexcutorService的实例。
+
+
+### 参考资料
+https://blog.csdn.net/linxdcn/article/details/72828362?utm_source=gold_browser_extension
+
+https://blog.csdn.net/qq_22929803/article/details/52347381
