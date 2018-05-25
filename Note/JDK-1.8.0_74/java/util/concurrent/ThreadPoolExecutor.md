@@ -344,3 +344,15 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
     }
 }
 ```
+
+![ThreadPoolExecutor模型](https://github.com/IceDarron/Source-code-Encyclopedia/blob/master/Image/jdk_ThreadPoolExecutor_work.png)
+
+可以看到Worker继承了AQS抽象类并且实现了Runnable接口，其是ThreadPoolExecutor的核心内部类。
+而对于AbortPolicy，用于被拒绝任务的处理程序，它将抛出 RejectedExecutionException。
+CallerRunsPolicy，用于被拒绝任务的处理程序，它直接在 execute 方法的调用线程中运行被拒绝的任务，如果执行程序已关闭，则会丢弃该任务。
+DiscardPolicy，用于被拒绝任务的处理程序，默认情况下它将丢弃被拒绝的任务。
+DiscardOldestPolicy，用于被拒绝任务的处理程序，它放弃最旧的未处理请求，然后重试 execute；如果执行程序已关闭，则会丢弃该任务。
+这些都是拒绝任务提交时的所采用的不同策略。
+
+### 相关资料
+https://blog.csdn.net/qq_22929803/article/details/52347381
